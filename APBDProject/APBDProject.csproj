@@ -75,6 +75,7 @@
     <Compile Include="DAL\CarOwner.cs" />
     <Compile Include="DAL\CarType.cs" />
     <Compile Include="DAL\DatabaseModel.cs" />
+    <Compile Include="Utilities\ValidationBase.cs" />
     <Compile Include="Views\AddCar.xaml.cs">
       <DependentUpon>AddCar.xaml</DependentUpon>
     </Compile>

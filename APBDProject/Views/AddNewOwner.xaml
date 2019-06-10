@@ -10,6 +10,8 @@
         Background="#F4F4F4"
         MinWidth="300">
     <Grid>
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
@@ -21,7 +23,22 @@
         </DockPanel>
         <StackPanel Grid.Row="1">
             <Label Margin="5, 5, 10, 0" Foreground="#9e9e9e" Grid.Row="0" Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox x:Name="ownerName" HorizontalAlignment="Stretch" Padding="5" BorderThickness="0"  Margin="10,0,10,0"  TextWrapping="Wrap" VerticalAlignment="Top" />
+            <TextBox Text="{Binding CarOwner.FirstName, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="ownerName" HorizontalAlignment="Stretch" Padding="5" BorderThickness="0"  Margin="10,0,10,0"  TextWrapping="Wrap" VerticalAlignment="Top" >
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <ItemsControl ItemsSource="{Binding}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
             <Label Margin="5, 5, 10, 0" Foreground="#9e9e9e" Grid.Row="0" Content="Surname" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox x:Name="ownerLastName" Padding="5" BorderThickness="0"  Margin="10,0,10,0" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top"  />

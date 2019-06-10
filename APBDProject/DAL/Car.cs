@@ -1,6 +1,7 @@
 namespace APBDProject
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -39,5 +40,38 @@ namespace APBDProject
         public virtual CarType CarType { get; set; }
 
         public virtual CarOwner CarOwner { get; set; }
+
+        //Validation
+        public IEnumerable GetErrors(string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName) || (!HasErrors))
+                return null;
+
+            return new List<string>() { "Invalid credentials." };
+
+        }
+
+        [NotMapped]
+        public bool HasErrors { get; set; } = false;
+
+        public bool CheckCredentials()
+        {
+            if (string.IsNullOrEmpty(Manufacturer) || string.IsNullOrWhiteSpace(Manufacturer) || string.IsNullOrEmpty(Model) || string.IsNullOrWhiteSpace(Model) || string.IsNullOrEmpty(Review) || string.IsNullOrWhiteSpace(Review)
+                || string.IsNullOrEmpty(Color) || string.IsNullOrWhiteSpace(Color)
+                || string.IsNullOrEmpty(Image) || string.IsNullOrWhiteSpace(Image) || !Image.StartsWith("http"))
+            {
+                HasErrors = true;
+            }
+            else
+            {
+                HasErrors = false;
+            }
+
+            if (!HasErrors)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

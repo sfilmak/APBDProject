@@ -54,11 +54,6 @@ namespace APBDProject
                     listOfCars.Add(car);
                     AddCarToDB(car);
                 }
-                else
-                {
-                    MessageBox.Show("Some data is incorrect!");
-                }
-
             }
         }
 
@@ -71,11 +66,7 @@ namespace APBDProject
                 if (addOwnerWindow.owner != null)
                 {
                     owner = addOwnerWindow.GetOwner;
-                    AddOwnerToDB(owner);
-                }
-                else
-                {
-                    MessageBox.Show("Some data is incorrect!");
+                    AddOwnerToDB(owner);  
                 }
             }
         }

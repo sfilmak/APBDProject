@@ -1,6 +1,9 @@
 namespace APBDProject
 {
+    using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,5 +36,35 @@ namespace APBDProject
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Car> Cars { get; set; }
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName) || (!HasErrors))
+                return null;
+
+            return new List<string>() { "Invalid credentials." };
+
+        }
+
+        [NotMapped]
+        public bool HasErrors { get; set; } = false;
+        
+        public bool CheckCredentials()
+        {
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrWhiteSpace(LastName) || string.IsNullOrEmpty(Image) || string.IsNullOrWhiteSpace(Image) || !Image.StartsWith("http")) {
+                HasErrors = true;
+            } else
+            {
+                HasErrors = false;
+            }
+
+            if (!HasErrors)
+            { 
+                return true;
+            }
+            return false;
+        }
     }
+
+
 }

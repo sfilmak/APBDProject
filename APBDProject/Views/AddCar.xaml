@@ -33,7 +33,7 @@
             <TextBox x:Name="carColor" Padding="5" BorderThickness="0"  Margin="10,0,10,0" HorizontalAlignment="Stretch" TextWrapping="Wrap"  VerticalAlignment="Top"  />
 
             <Label Margin="5, 5, 10, 0" Foreground="#9e9e9e" Grid.Row="0" Content="Year" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox x:Name="carYear" Padding="5" BorderThickness="0"  Margin="10,0,10,0"  HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top"  />
+            <TextBox x:Name="carYear" Padding="5" BorderThickness="0"  Margin="10,0,10,0"  HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
             <Label Margin="5, 5, 10, 0" Foreground="#9e9e9e" Grid.Row="0" Content="Image" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox x:Name="carImage" Padding="5" BorderThickness="0"  Margin="10,0,10,0" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top"  />
