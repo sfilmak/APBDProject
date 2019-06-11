@@ -1,11 +1,9 @@
 namespace APBDProject
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("Car")]
     public partial class Car
@@ -58,7 +56,8 @@ namespace APBDProject
         {
             if (string.IsNullOrEmpty(Manufacturer) || string.IsNullOrWhiteSpace(Manufacturer) || string.IsNullOrEmpty(Model) || string.IsNullOrWhiteSpace(Model) || string.IsNullOrEmpty(Review) || string.IsNullOrWhiteSpace(Review)
                 || string.IsNullOrEmpty(Color) || string.IsNullOrWhiteSpace(Color)
-                || string.IsNullOrEmpty(Image) || string.IsNullOrWhiteSpace(Image) || !Image.StartsWith("http"))
+                || string.IsNullOrEmpty(Image) || string.IsNullOrWhiteSpace(Image) || !Image.StartsWith("http") 
+                || string.IsNullOrEmpty(ProductionYear.ToString()) || string.IsNullOrWhiteSpace(ProductionYear.ToString()))
             {
                 HasErrors = true;
             }

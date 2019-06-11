@@ -36,19 +36,22 @@ namespace APBDProject.Views
             string yearString = carYear.Text;
             int typeID = carType.IdCarType;
             int ownerID = carOwner.IdOwner;
-            int carProductionYear;
+            string carProductionYear = carYear.Text;
+            //By default it is 2019
+            int checkingYear = 2019;
 
-            //Production year is not required
-            //So, if it is empty - replace with 2019
-            if(string.IsNullOrEmpty(yearString))
+            var isNumeric = int.TryParse(carProductionYear, out int n);
+            if (!isNumeric)
             {
-                carProductionYear = 2019;
-            } else
+                carYear.Background = Brushes.Red;
+            }
+            else
             {
-                carProductionYear = Int32.Parse(yearString);
+                carYear.Background = Brushes.White;
+                checkingYear = int.Parse(carProductionYear);
             }
 
-            Car carToCheck = new Car { Manufacturer = manuf, Model = model, Review = review, Color = color, Image = image, ProductionYear = carProductionYear, IdCarType = typeID, IdOwner = ownerID };
+            Car carToCheck = new Car { Manufacturer = manuf, Model = model, Review = review, Color = color, Image = image, ProductionYear = checkingYear, IdCarType = typeID, IdOwner = ownerID };
             if (carToCheck.CheckCredentials())
             {
                 car = carToCheck;
@@ -100,6 +103,8 @@ namespace APBDProject.Views
                 {
                     carImage.Background = Brushes.White;
                 }
+
+               
             }
         }
 

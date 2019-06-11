@@ -1,9 +1,7 @@
 namespace APBDProject
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -51,7 +49,9 @@ namespace APBDProject
         
         public bool CheckCredentials()
         {
-            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrWhiteSpace(LastName) || string.IsNullOrEmpty(Image) || string.IsNullOrWhiteSpace(Image) || !Image.StartsWith("http")) {
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrWhiteSpace(LastName) || string.IsNullOrEmpty(Image) || string.IsNullOrWhiteSpace(Image) || !Image.StartsWith("http") 
+                || string.IsNullOrEmpty(Location) || string.IsNullOrWhiteSpace(Location))
+            {
                 HasErrors = true;
             } else
             {

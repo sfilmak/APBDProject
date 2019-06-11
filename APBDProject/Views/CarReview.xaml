@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Owner Review" Height="700" Width="500"
-          MinHeight="400"
-        MinWidth="300"
+        MinHeight="400" MinWidth="300"
         WindowStartupLocation="CenterScreen">
 
     <Grid>
@@ -17,31 +16,31 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-     
-
         <Image x:Name="CarPhoto" Grid.Row="0" VerticalAlignment="Top" Stretch="UniformToFill"/>
-        <DockPanel Grid.Row="1">
+        <DockPanel Grid.Row="1" x:Name="OwnerInformation" MouseLeftButtonDown="OwnerInformation_MouseLeftButtonDown">
 
-            <Image x:Name="ownerPhoto"
-  Width="50" Height="50 " Grid.Row="0" Margin="5, 0, 5, 0" VerticalAlignment="Center">
+            <Image x:Name="ownerPhoto" Width="50" Height="50 " Grid.Row="0" Margin="5, 0, 5, 0" VerticalAlignment="Center">
                 <Image.Clip>
                     <EllipseGeometry
-      RadiusX="20"
-      RadiusY="20"
-      Center="25,25"/>
+                        RadiusX="20"
+                        RadiusY="20"
+                        Center="25,25"/>
                 </Image.Clip>
             </Image>
 
             <Grid VerticalAlignment='Center'>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Label x:Name="ownerNameTitle" Padding="0"  Grid.Row="0" Content="Owner"  VerticalAlignment="Bottom" FontWeight="Bold"/>
-                <Label x:Name="ownerLocation" Padding="0" Grid.Row="1" VerticalAlignment="Top" Content="Location" />
+                <Label x:Name="ownerNameTitle" Padding="0"  Grid.Row="0" Content="Owner"  VerticalAlignment="Bottom" FontWeight="Bold" Grid.ColumnSpan="2" Margin="0,0,-0.4,0"/>
+                <Label x:Name="ownerLocation" Padding="0" Grid.Row="1" VerticalAlignment="Top" Content="Location" Grid.ColumnSpan="2" Margin="0,0,-0.4,0" />
             </Grid>
-           
         </DockPanel>
 
         <DockPanel Grid.Row="2">

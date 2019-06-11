@@ -40,12 +40,21 @@ namespace APBDProject.Views
                     ownerLastName.Background = Brushes.White;
                 }
 
-                if (string.IsNullOrEmpty(ownerImage.Text) || string.IsNullOrWhiteSpace(ownerImage.Text))
+                if (string.IsNullOrEmpty(ownerImage.Text) || string.IsNullOrWhiteSpace(ownerImage.Text) || !ownerImage.Text.StartsWith("http"))
                 {
                     ownerImage.Background = Brushes.Red;
                 } else
                 {
                     ownerImage.Background = Brushes.White;
+                }
+
+                if (string.IsNullOrEmpty(ownerLocation.Text) || string.IsNullOrWhiteSpace(ownerLocation.Text))
+                {
+                    ownerLocation.Background = Brushes.Red;
+                }
+                else
+                {
+                    ownerLocation.Background = Brushes.White;
                 }
             }
         }
