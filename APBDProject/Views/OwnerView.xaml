@@ -46,14 +46,14 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
 
-                    <Grid Background="#4CFFFFFF">
+                    <Grid MouseDown="TextBlockMouseDown" Background="#4CFFFFFF">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image  MouseDown="TextBlockMouseDown" Grid.Row="1" Source="{Binding Image}" Stretch="UniformToFill" Width="300" HorizontalAlignment="Stretch" Height="200" />
+                        <Image Grid.Row="1" Source="{Binding Image}" Stretch="UniformToFill" Width="300" HorizontalAlignment="Stretch" Height="200" />
                         <TextBlock Margin="0, 5, 0, 0" Grid.Row="2"  FontSize="16" VerticalAlignment="Center" FontWeight="Bold">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1}">

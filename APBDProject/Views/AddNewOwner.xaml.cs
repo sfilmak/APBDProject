@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Media;
 
@@ -63,6 +63,8 @@ namespace APBDProject.Views
         {
             get { return owner; }
         }
+
+     
     }
 
     

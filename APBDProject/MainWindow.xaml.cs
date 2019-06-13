@@ -1,5 +1,6 @@
 ﻿using APBDProject.Views;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -10,11 +11,19 @@ namespace APBDProject
     {
         private ObservableCollection<Car> listOfCars;
         DatabaseModel context;
+
         public MainWindow()
         {
             InitializeComponent();
             context = new DatabaseModel();
-            GetCars(context);
+            if (CheckConnection())
+            {
+                GetCars(context);
+            } else
+            {
+                MessageBox.Show("Database is not available at the moment. Check your connection");
+            }
+               
         }
 
         public void GetCars(DatabaseModel context)
@@ -28,46 +37,67 @@ namespace APBDProject
         {
             if (e.ClickCount >= 2)
             {
-                if (carsListBox.SelectedItem == null) return;
-                var selectedCar = carsListBox.SelectedItem as Car;
-                if (selectedCar == null) return;
+                if(CheckConnection())
+                {
+                    if (carsListBox.SelectedItem == null) return;
+                    var selectedCar = carsListBox.SelectedItem as Car;
+                    if (selectedCar == null) return;
 
-                string carName = selectedCar.Manufacturer + " " + selectedCar.Model;
-                string carReview = selectedCar.Review;
-                string carImage = selectedCar.Image;
-                int? idOwner = selectedCar.IdOwner;
-                int year = selectedCar.ProductionYear;
-                CarReview ShowCarReview = new CarReview(carName, year, carReview, carImage, idOwner);
-                ShowCarReview.ShowDialog();
+                    string carName = selectedCar.Manufacturer + " " + selectedCar.Model;
+                    string carReview = selectedCar.Review;
+                    string carImage = selectedCar.Image;
+                    int? idOwner = selectedCar.IdOwner;
+                    int year = selectedCar.ProductionYear;
+                    CarReview ShowCarReview = new CarReview(carName, year, carReview, carImage, idOwner);
+                    ShowCarReview.ShowDialog();
+                } else
+                {
+                    MessageBox.Show("Sorry, seems like it is not possible to connect to DB at the moment");
+                }
+     
+               
             }
         }
 
         private void MenuItem_Add_Car_Click(object sender, RoutedEventArgs e)
         {
-            AddCar addCarWindow = new AddCar();
-            Car car = null;
-            if (addCarWindow.ShowDialog() == false)
+            if (CheckConnection())
             {
-                if (addCarWindow.car != null)
+                AddCar addCarWindow = new AddCar();
+                Car car = null;
+                if (addCarWindow.ShowDialog() == false)
                 {
-                    car = addCarWindow.GetCar;
-                    listOfCars.Add(car);
-                    AddCarToDB(car);
+                    if (addCarWindow.car != null)
+                    {
+                        car = addCarWindow.GetCar;
+                        listOfCars.Add(car);
+                        AddCarToDB(car);
+                    }
                 }
+            } else
+            {
+                MessageBox.Show("Sorry, seems like it is not possible to connect to DB at the moment");
             }
         }
 
         private void MenuItem_Add_Owner_Click(object sender, RoutedEventArgs e)
         {
-            AddNewOwner addOwnerWindow = new AddNewOwner();
-            CarOwner owner = null;
-            if (addOwnerWindow.ShowDialog() == false)
+            if (CheckConnection())
             {
-                if (addOwnerWindow.owner != null)
+                AddNewOwner addOwnerWindow = new AddNewOwner();
+                CarOwner owner = null;
+                if (addOwnerWindow.ShowDialog() == false)
                 {
-                    owner = addOwnerWindow.GetOwner;
-                    AddOwnerToDB(owner);  
+                    if (addOwnerWindow.owner != null)
+                    {
+                        owner = addOwnerWindow.GetOwner;
+                        AddOwnerToDB(owner);
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Sorry, seems like it is not possible to connect to DB at the moment");
             }
         }
 
@@ -82,5 +112,21 @@ namespace APBDProject
             context.CarOwners.Add(carOwner);
             context.SaveChanges();
         }
+
+        public bool CheckConnection()
+        {
+            try
+            {
+                context.Database.Connection.Open();
+                context.Database.Connection.Close();
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            return true;
+        }
     }
+
+
 }

@@ -1,5 +1,6 @@
 ﻿using APBDProject.Views;
 using System;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Media.Imaging;
 namespace APBDProject
@@ -35,9 +36,31 @@ namespace APBDProject
         {
             if (e.ClickCount == 2)
             {
-                OwnerView ownerView = new OwnerView(ownerID);
-                ownerView.Show();
+                if (CheckConnection())
+                {
+                    OwnerView ownerView = new OwnerView(ownerID);
+                    ownerView.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Sorry, seems like it is not possible to connect to DB at the moment");
+                }
+                
             }
+        }
+
+        public bool CheckConnection()
+        {
+            try
+            {
+                context.Database.Connection.Open();
+                context.Database.Connection.Close();
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

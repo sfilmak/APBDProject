@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -37,18 +38,39 @@ namespace APBDProject.Views
         {
             if (e.ClickCount >= 2)
             {
-                if (carsListBox.SelectedItem == null) return;
-                var selectedCar = carsListBox.SelectedItem as Car;
-                if (selectedCar == null) return;
+                if(CheckConnection())
+                {
+                    if (carsListBox.SelectedItem == null) return;
+                    Car selectedCar = carsListBox.SelectedItem as Car;
+                    if (selectedCar == null) return;
 
-                string carName = selectedCar.Manufacturer + " " + selectedCar.Model;
-                string carReview = selectedCar.Review;
-                string carImage = selectedCar.Image;
-                int? idOwner = selectedCar.IdOwner;
-                int year = selectedCar.ProductionYear;
-                CarReview ShowCarReview = new CarReview(carName, year, carReview, carImage, idOwner);
-                ShowCarReview.ShowDialog();
+                    string carName = selectedCar.Manufacturer + " " + selectedCar.Model;
+                    string carReview = selectedCar.Review;
+                    string carImage = selectedCar.Image;
+                    int? idOwner = selectedCar.IdOwner;
+                    int year = selectedCar.ProductionYear;
+                    CarReview ShowCarReview = new CarReview(carName, year, carReview, carImage, idOwner);
+                    ShowCarReview.ShowDialog();
+                } else
+                {
+                    MessageBox.Show("Sorry, seems like it is not possible to connect to DB at the moment");
+                }
+               
             }
+        }
+
+        public bool CheckConnection()
+        {
+            try
+            {
+                context.Database.Connection.Open();
+                context.Database.Connection.Close();
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            return true;
         }
     }
 
